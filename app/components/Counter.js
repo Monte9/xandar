@@ -21,18 +21,13 @@ class Counter extends Component {
             <i className="fa fa-arrow-left fa-3x" />
           </Link>
         </div>
-        <div className={`counter ${styles.counter}`}>
-          {counter}
+        <div className={`image ${styles.counter}`}>
+          <img src="./images/kitten.jpg" width="500" height="500" />
         </div>
         <div className={styles.btnGroup}>
           <button className={styles.btn} onClick={increment}>
-            <i className="fa fa-plus" />
+            Process
           </button>
-          <button className={styles.btn} onClick={decrement}>
-            <i className="fa fa-minus" />
-          </button>
-          <button className={styles.btn} onClick={incrementIfOdd}>odd</button>
-          <button className={styles.btn} onClick={() => incrementAsync()}>async</button>
         </div>
       </div>
     );
