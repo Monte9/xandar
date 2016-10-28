@@ -8,8 +8,9 @@ Also using [Clarifai API](https://github.com/Clarifai/clarifai-javascript) for i
 
 ## Screenshot
 
-![Xandar Screenshot 1](screenshot1.png)
-![Xandar Screenshot 2](screenshot2.png)
+<img src="https://github.com/Monte9/xandar/blob/master/screenshot1.png" width="400">
+
+<img src="https://github.com/Monte9/xandar/blob/master/screenshot1.png" width="400">
 
 ## electron-react-boilerplate
 
