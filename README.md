@@ -10,7 +10,7 @@ Also using [Clarifai API](https://github.com/Clarifai/clarifai-javascript) for i
 
 <img src="https://github.com/Monte9/xandar/blob/master/screenshot1.png" width="400">
 
-<img src="https://github.com/Monte9/xandar/blob/master/screenshot1.png" width="400">
+<img src="https://github.com/Monte9/xandar/blob/master/screenshot2.png" width="400">
 
 ## electron-react-boilerplate
 
