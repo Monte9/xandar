@@ -22,8 +22,8 @@
   color: #566270;
 }
 
-
-.container a {
+.container h3 a {
+  text-decoration: underline;
   font-size: 3rem;
   color: #EE7785;
 }

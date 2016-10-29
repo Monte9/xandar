@@ -15,7 +15,7 @@ export default class Info extends Component {
           <h1>Xandar</h1>
           <h3>Xandar is an experimental project built using electron
           + react + redux + webpack + clarifai API.</h3>
-          <h4>Developed by Monte Thakkar</h4>
+          <h4>Developed by <a href="https://github.com/monte9">Monte Thakkar</a></h4>
         </div>
       </div>
     );
