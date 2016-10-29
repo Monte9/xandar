@@ -1,17 +1,22 @@
 .backButton {
   position: absolute;
+  top: 25px;
+  left: 25px;
 }
 
-.counter {
-  flex: auto;
-  padding: 70px;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 660px;
 }
 
-.btnGroup {
-  position: relative;
-  top: 00px;
-  width: 480px;
-  margin: 0 auto;
+.image {
+  width: 450px;
+  height: 450px;
+  padding: 50px;
+  border-radius: 100px;
 }
 
 .btn {
@@ -19,7 +24,6 @@
   font-weight: bold;
   color: #67D5B5;
   background-color: #EE7785;
-  margin: 10px;
   width: 120px;
   height: 60px;
   border-radius: 30px;

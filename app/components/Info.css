@@ -1,3 +1,9 @@
+.backButton {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -8,22 +14,20 @@
 
 .container h1 {
   font-size: 5rem;
-  color: #ffc952;
+  color: #EE7785;
 }
 
-.title {
-  flex-direction: column;
-  background-color: red;
-}
 .container h3 {
   font-size: 1.5rem;
   align-self: center;
   align-content: center;
+  text-align: center;
   color: #566270;
+  padding-left: 50px;
+  padding-right: 50px;
 }
-
 
 .container a {
   font-size: 3rem;
-  color: #EE7785;
+  color: #ffc952;
 }

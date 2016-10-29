@@ -6,10 +6,9 @@ import styles from './Home.css';
 export default class Home extends Component {
   render() {
     return (
-      <div>
-        <div className={styles.container}>
-          <Link to="/counter">Upload</Link>
-        </div>
+      <div className={styles.container}>
+        <Link to="/info"><h1>Xandar</h1></Link>
+        <h3><Link to="/counter">Upload</Link> an image of a cat or a dog.</h3>
       </div>
     );
   }
