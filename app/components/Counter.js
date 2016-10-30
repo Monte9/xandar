@@ -2,6 +2,9 @@ import { remote } from 'electron';
 
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import Clarifai from 'clarifai';
+import _ from 'lodash';
+
 import styles from './Counter.css';
 
 class Counter extends Component {
@@ -9,13 +12,31 @@ class Counter extends Component {
     super(props);
     this.state = {
       imagePath: './images/kitten.jpg',
+      tagText: "No tags yet",
     };
+
+    Clarifai.initialize({
+      'clientId': 'lOqUBsqjuy0OAhFFDViEMgrmYS9Ryb2dn1p10E1r',
+      'clientSecret': '1yTeax8Esj0FWs29Gj9YGXcN6IqUs_Dt_Wj8Gehu'
+    });
+
+    console.log(Clarifai);
 
     this.openDialog = this.openDialog.bind(this);
   }
 
   processImage() {
     console.log('Use claifai API and process image here');
+  }
+
+  // function to encode file data to base64 encoded string
+  base64_encode(file) {
+    const fs = require('fs');
+
+    // read binary data
+    var bitmap = fs.readFileSync(file);
+    // convert binary data to base64 encoded string
+    return new Buffer(bitmap).toString('base64');
   }
 
   openDialog() {
@@ -35,13 +56,50 @@ class Counter extends Component {
     }
 
     // const fs = require('fs');
+    //
     // fs.readFile(path[0], (err, data) => {
     //   if (err) throw err;
     //   console.log(data);
+
+      Clarifai.getTagsByImageBytes(this.base64_encode(path[0])).then(
+      (res) => {
+        const zipped = _.zip(res.results[0].result.tag.classes, res.results[0].result.tag.probs);
+      //console.log(zipped);
+
+        let isCat = false;
+        let isDog = false;
+
+        var c = _.map(zipped, function(pair) {
+          var first = pair[0];
+          var second = pair[1];
+
+          console.log(_.includes(['cat', 'kitten'], first));
+
+          isCat = _.includes(['cat', 'kitten'], first);
+
+          isDog = _.includes(['dog', 'canine', 'puppy'], first);
+        });
+
+        this.setState({
+          tagText: res.results[0].result.tag.classes.toString(),
+          isCat,
+          isDog,
+          message: '',
+        });
+      },
+      (error)=>{
+        console.log(error);
+      });
     // });
   }
 
+  tagText() {
+    return <div className={styles.tagtext}><p>{this.state.tagText}</p></div>
+  }
+
   render() {
+    console.log(this.state);
+
     return (
       <div>
         <div className={styles.backButton}>
@@ -55,6 +113,7 @@ class Counter extends Component {
             Upload
           </button>
         </div>
+        {this.tagText()}
       </div>
     );
   }

@@ -15,7 +15,7 @@ export default class Home extends Component {
     return (
       <div className={styles.container}>
         <Link to="/info"><h1>Xandar</h1></Link>
-        <h3>Upload an image of a cat or a dog and let.</h3>
+        <h3>Upload an image of a cat or a dog.</h3>
         <h3><Link to="/counter">Let's go</Link></h3>
       </div>
     );
