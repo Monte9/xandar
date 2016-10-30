@@ -12,31 +12,16 @@ class Counter extends Component {
     super(props);
     this.state = {
       imagePath: './images/kitten.jpg',
-      tagText: "No tags yet",
+      tagText: 'No tags yet',
+      message: 'No image uploaded yet!'
     };
 
     Clarifai.initialize({
       'clientId': 'lOqUBsqjuy0OAhFFDViEMgrmYS9Ryb2dn1p10E1r',
       'clientSecret': '1yTeax8Esj0FWs29Gj9YGXcN6IqUs_Dt_Wj8Gehu'
     });
-
     console.log(Clarifai);
-
     this.openDialog = this.openDialog.bind(this);
-  }
-
-  processImage() {
-    console.log('Use claifai API and process image here');
-  }
-
-  // function to encode file data to base64 encoded string
-  base64_encode(file) {
-    const fs = require('fs');
-
-    // read binary data
-    var bitmap = fs.readFileSync(file);
-    // convert binary data to base64 encoded string
-    return new Buffer(bitmap).toString('base64');
   }
 
   openDialog() {
@@ -55,46 +40,96 @@ class Counter extends Component {
       });
     }
 
-    // const fs = require('fs');
-    //
-    // fs.readFile(path[0], (err, data) => {
-    //   if (err) throw err;
-    //   console.log(data);
+    Clarifai.getTagsByImageBytes(this.base64_encode(path[0])).then(
+    (res) => {
+      const zipped = _.zip(res.results[0].result.tag.classes, res.results[0].result.tag.probs);
 
-      Clarifai.getTagsByImageBytes(this.base64_encode(path[0])).then(
-      (res) => {
-        const zipped = _.zip(res.results[0].result.tag.classes, res.results[0].result.tag.probs);
-      //console.log(zipped);
+      let message = '';
+      const isDog = this.checkIfDog(zipped);
+      const isCat = this.checkIfCat(zipped);
 
-        let isCat = false;
-        let isDog = false;
+      if(isCat) {
+        message = "It's a Cat!";
+      } else if (isDog) {
+        message = "It's a Dog!";
+      } else {
+        message = `You can't trick me! It's neither a cat or a dog.. infact my best guess is it's a ${res.results[0].result.tag.classes[0]}`;
+      }
 
-        var c = _.map(zipped, function(pair) {
-          var first = pair[0];
-          var second = pair[1];
-
-          console.log(_.includes(['cat', 'kitten'], first));
-
-          isCat = _.includes(['cat', 'kitten'], first);
-
-          isDog = _.includes(['dog', 'canine', 'puppy'], first);
-        });
-
-        this.setState({
-          tagText: res.results[0].result.tag.classes.toString(),
-          isCat,
-          isDog,
-          message: '',
-        });
-      },
-      (error)=>{
-        console.log(error);
+      this.setState({
+        tagText: res.results[0].result.tag.classes.toString(),
+        isCat,
+        isDog,
+        message,
+        keyTag: res.results[0].result.tag.classes[0],
       });
-    // });
+    },
+    (error)=>{
+      console.log(error);
+    });
+  }
+
+  // function to encode file data to base64 encoded string
+  base64_encode(file) {
+    const fs = require('fs');
+    // read binary data
+    var bitmap = fs.readFileSync(file);
+    // convert binary data to base64 encoded string
+    return new Buffer(bitmap).toString('base64');
+  }
+
+  checkIfCat(array) {
+    let count = 0;
+    let totalScore = 0;
+    let avgScore = 0;
+
+    _.map(array, function(pair) {
+      const first = pair[0];
+      const second = pair[1];
+
+      if (_.includes(['cat', 'kitten'], first)) {
+        totalScore += second;
+        count += 1;
+      }
+    });
+
+    avgScore = (totalScore / count);
+    return avgScore > 0.95;
+  }
+
+  checkIfDog(array) {
+    let count = 0;
+    let totalScore = 0;
+    let avgScore = 0;
+
+    _.map(array, function(pair) {
+      const first = pair[0];
+      const second = pair[1];
+
+      if (_.includes(['dog', 'canine', 'puppy'], first)) {
+        totalScore += second;
+        count += 1;
+      }
+    });
+    avgScore = (totalScore / count);
+    return avgScore > 0.95;
+  }
+
+  foo() {
+    console.log(this.state.isDog);
+    console.log(this.state.keyTag);
+
+    if (this.state.isDog) {
+      return "It's a dog!";
+    } else if (this.state.isCat) {
+      return "It's a cat!";
+    } else {
+      return `You can't trick me! It's neither a cat or a dog.. infact my best guess is it's a ${this.state.keyTag}!`;
+    }
   }
 
   tagText() {
-    return <div className={styles.tagtext}><p>{this.state.tagText}</p></div>
+    return <div className={styles.tagtext}><p>{this.state.message}</p></div>
   }
 
   render() {
