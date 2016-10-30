@@ -6,14 +6,9 @@
 
 Also using [Clarifai API](https://github.com/Clarifai/clarifai-javascript) for image processing.
 
-## Screenshot
+## Demo
 
-<img src="https://github.com/Monte9/xandar/blob/master/screenshot1.png" width="400"> <img src="https://github.com/Monte9/xandar/blob/master/screenshot2.png" width="400">
-
-<img src="https://github.com/Monte9/xandar/blob/master/screenshot3.png" width="400"> <img src="https://github.com/Monte9/xandar/blob/master/screenshot4.png" width="400">
-
-<img src="https://github.com/Monte9/xandar/blob/master/screenshot5.png" width="400">
-
+![xandar.gif](xandar.gif)
 
 ## electron-react-boilerplate
 

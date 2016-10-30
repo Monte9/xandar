@@ -5,12 +5,6 @@ import { Link } from 'react-router';
 import styles from './Home.css';
 
 export default class Home extends Component {
-  openDialog() {
-    console.log("Open file selector here");
-  }
-
-  //<h3><a onClick={this.openDialog}>Upload</a> an image of a cat or a dog.</h3>
-
   render() {
     return (
       <div className={styles.container}>

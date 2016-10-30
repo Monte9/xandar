@@ -115,26 +115,11 @@ class Counter extends Component {
     return avgScore > 0.95;
   }
 
-  foo() {
-    console.log(this.state.isDog);
-    console.log(this.state.keyTag);
-
-    if (this.state.isDog) {
-      return "It's a dog!";
-    } else if (this.state.isCat) {
-      return "It's a cat!";
-    } else {
-      return `You can't trick me! It's neither a cat or a dog.. infact my best guess is it's a ${this.state.keyTag}!`;
-    }
-  }
-
   tagText() {
     return <div className={styles.tagtext}><p>{this.state.message}</p></div>
   }
 
   render() {
-    console.log(this.state);
-
     return (
       <div>
         <div className={styles.backButton}>
